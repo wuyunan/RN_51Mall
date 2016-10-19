@@ -24,15 +24,7 @@ let homeReducer = (state = initialState, action) => {
                 isRefreshing: false,
                 isLoading: false,
             })
-        case types.RECEIVE_SEAUGO_LIST:
-
-
-            return Object.assign({}, state, {
-                UGOList: action.uGoList,
-                isRefreshing: false,
-                isLoading: false,
-            })
-
+    
         default:
             return state;
     }

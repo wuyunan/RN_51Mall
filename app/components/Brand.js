@@ -15,7 +15,7 @@ export default class Brand extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-            分类
+            品牌
         </Text>
 
       </View>

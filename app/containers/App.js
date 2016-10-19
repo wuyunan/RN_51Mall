@@ -19,7 +19,7 @@ class App extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 <StatusBarIOS barStyle="default"/>
-
+                
                 <Navigator
                     initialRoute={{ name: 'Splash', component: Splash }}
 

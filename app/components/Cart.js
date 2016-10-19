@@ -1,8 +1,4 @@
-/**
- * Created by jason
- */
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -15,7 +11,7 @@ export default class Cart extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-            分类
+            购物车
         </Text>
 
       </View>

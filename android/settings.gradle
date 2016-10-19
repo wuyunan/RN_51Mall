@@ -1,3 +1,9 @@
 rootProject.name = 'RNTestProject'
 
 include ':app'
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+include ':react-native-icons'
+project(':react-native-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-icons/android')
+include ':react-native-des'
+project(':react-native-des').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-des/android')
