@@ -48,16 +48,14 @@ export default class Home extends Component {
         const { HomeReducer } = this.props;
         let homeList = [];
 
-        //homeList = HomeReducer.HomeList;
+        homeList = HomeReducer.HomeList;
 
         // let homeList = HomeReducer.HomeList;
 
         return (
             <View style={styles.container}>
-            <Text>
-            sssss
-            </Text>
-                {/* {HomeReducer.isLoading ? <Loading /> :
+            
+                {HomeReducer.isLoading ? <Loading /> :
                     <ListView
                         dataSource={this.state.dataSource.cloneWithRows(homeList.module ? homeList.module : []) }
                         renderRow={this._renderRow}
@@ -65,7 +63,7 @@ export default class Home extends Component {
                         initialListSize= {1}
                         style={styles.listView}
                         />
-                } */}
+                }
             </View>
 
         );
