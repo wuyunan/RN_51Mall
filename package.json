@@ -9,7 +9,6 @@
     "react": "15.3.2",
     "react-native": "0.34.1",
     "react-native-icons": "^0.7.1",
-    "react-native-md5": "^1.0.0",
     "react-native-nav": "^1.1.4",
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-native-swiper": "^1.5.2",

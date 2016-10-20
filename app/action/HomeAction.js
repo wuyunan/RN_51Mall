@@ -10,14 +10,11 @@ import Common from '../common/constants';
 
 export let HomeAction = ( isRefreshing, isLoading) => {
 
-    let URL = 'http://apidev.niuchuangwin.com/app/call?code=getorders&ver=1';
+    let URL = 'http://apidev.niuchuangwin.com/app/call?code=homepage&ver=1';
     console.log(URL)
     return dispatch => {
         // dispatch(feachHomeList(isRefreshing, isLoading));
-            dispatch(feachHomeList(isRefreshing, isLoading));
-
-
-
+        dispatch(feachHomeList(isRefreshing, isLoading));
         return Util.post(URL, "",(response) => {
             // console.log(response)
             //由于没有api 只能拿真实的固定数据

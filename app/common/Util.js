@@ -3,6 +3,7 @@
  */
 
 
+
 let KeyParam = {
     KEY_APP_ID : "appid",
     KEY_APP_VERSION : "appv",
@@ -30,7 +31,7 @@ let Util = {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(param)
+                body: JSON.stringify(getSignParam(param))
             })
             .then((response) => response.text())
             .then((responseText) => {
@@ -109,12 +110,15 @@ let getSignParam = (bodyParam) => {
     paramMap.set(KeyParam.KEY_AREA , "530000_530100_530200_0");
     // paramMap.set(KeyParam.KEY_TOKEN , ""),
     paramMap.set(KeyParam.KEY_TS , Date.now());
+
+
+
     // paramMap.set(KeyParam.KEY_BODY , ""),
     //
     // for (var [key, value] of paramMap) {
     //   console.log(key + " = " + value);
     // }
-    //return paramMap;
+    return paramMap;
 }
 
 export default Util;

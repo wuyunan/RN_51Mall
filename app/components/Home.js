@@ -27,6 +27,8 @@ let limit = 21;
 export default class Home extends Component {
     constructor(props) {
         super(props);
+        console.log("dddd");
+
         this._renderRow = this._renderRow.bind(this);
 
         this.state = {
@@ -54,7 +56,7 @@ export default class Home extends Component {
 
         return (
             <View style={styles.container}>
-            
+
                 {HomeReducer.isLoading ? <Loading /> :
                     <ListView
                         dataSource={this.state.dataSource.cloneWithRows(homeList.module ? homeList.module : []) }
