@@ -26,7 +26,7 @@ class Splash extends React.Component {
           name: 'TabBarView'
         });
       });
-    }, 2000);
+    }, 500);
   }
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Point;
 import android.text.TextUtils;
 
-import com.rntestproject.MainApplication;
 import com.rntestproject.common.AppConstants;
 import com.rntestproject.util.sign.CommonSecret;
 import com.rntestproject.util.sign.DesUtils;
@@ -58,7 +57,10 @@ public class RequestUtil {
      * @param appMode
      * @return
      */
-    public static Map<String, String> getSignedParamMap(String bodyString, String token, Context context, String appMode) {
+    public static Map<String, String> getSignedParamMap(String bodyString,
+                                                        String token,
+                                                        Context context,
+                                                        String appMode) {
 
 
         Map<String, String> needSignParam = new HashMap<>();
@@ -67,14 +69,15 @@ public class RequestUtil {
         needSignParam.put(KEY_APP_VERSION, StrUtils.getVersion(context));
         needSignParam.put(KEY_APP_MODE, appMode);
         needSignParam.put(KEY_APP_CHANNEL, "Meizu");
-        needSignParam.put(KEY_DEVICE_ID, Installation.id(MainApplication.getContext()));
+        needSignParam.put(KEY_DEVICE_ID, Installation.id(context));
         needSignParam.put(KEY_DEVICE_BRAND, android.os.Build.BRAND);
         needSignParam.put(KEY_DEVICE_MODEL, android.os.Build.DEVICE);
         needSignParam.put(KEY_DEVICE_OS, AppConstants.OS.ANDROID);
         Point screenSize = StrUtils.getScreenSize(context);
 
         if (screenSize != null) {
-            needSignParam.put(KEY_DEVICE_SCREEN, String.format("%d*%d", screenSize.y, screenSize.x));
+            needSignParam.put(KEY_DEVICE_SCREEN,
+                    String.format("%d*%d", screenSize.y, screenSize.x));
         }
 
         needSignParam.put(KEY_DEVICE_NET, StrUtils.getAPNType(context) == StrUtils.WIFI ? "WIFI" : "");
@@ -98,7 +101,8 @@ public class RequestUtil {
         if (needSignParam.containsKey(KEY_BODY)) {
             try {
                 if (!TextUtils.isEmpty(needSignParam.get(KEY_BODY))) {
-                    String bodyEncrypt = DesUtils.encrypt(needSignParam.get(KEY_BODY), CommonSecret.DATASECRET.JSB_DES);
+                    String bodyEncrypt = DesUtils.encrypt(needSignParam.get(KEY_BODY),
+                            CommonSecret.DATASECRET.JSB_DES);
                     needSignParam.put(KEY_BODY, bodyEncrypt);
                 }
             } catch (Exception e) {

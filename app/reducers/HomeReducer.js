@@ -24,7 +24,7 @@ let homeReducer = (state = initialState, action) => {
                 isRefreshing: false,
                 isLoading: false,
             })
-    
+
         default:
             return state;
     }

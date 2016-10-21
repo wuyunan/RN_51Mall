@@ -1,7 +1,6 @@
 package com.rntestproject;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -23,19 +22,6 @@ import okhttp3.OkHttpClient;
 
 public class MainApplication extends Application implements ReactApplication {
 
-    private static MainApplication instance;
-
-
-    public static synchronized MainApplication getInstance() {
-        if (null == instance) {
-            instance = new MainApplication();
-        }
-        return instance;
-    }
-
-    public static Context getContext() {
-        return getInstance().getApplicationContext();
-    }
 
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {

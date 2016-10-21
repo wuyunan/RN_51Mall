@@ -1,11 +1,12 @@
 package com.rntestproject.rn;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.rntestproject.MainApplication;
 import com.rntestproject.common.AppConstants;
 import com.rntestproject.util.RequestUtil;
 
@@ -41,9 +42,10 @@ public class RNEncryptionModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getApiParamByCallBack(String bodyString, String token, Callback successBack, Callback errorBack) {
         try {
+            Log.d("T","getApiParamByCallBack");
             Map<String, String> map = RequestUtil.getSignedParamMap(bodyString,
                     token,
-                    MainApplication.getContext(),
+                    getCurrentActivity(),
                     AppConstants.APPMODE.REACT_NATIVE);
 
 
@@ -68,7 +70,7 @@ public class RNEncryptionModule extends ReactContextBaseJavaModule {
         try {
             Map<String, String> map = RequestUtil.getSignedParamMap(bodyString,
                     token,
-                    MainApplication.getContext(),
+                    getCurrentActivity(),
                     AppConstants.APPMODE.REACT_NATIVE);
 
 

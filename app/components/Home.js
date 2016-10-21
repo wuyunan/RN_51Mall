@@ -13,7 +13,7 @@ import {
 
 import Common from '../common/constants';
 import Swiper from 'react-native-swiper';
-import {HomeAction} from '../action/HomeAction';
+import { HomeAction } from '../action/HomeAction';
 import Loading from '../common/Loading';
 
 import HomeSwioer from '../Pages/HomeSwiper';
@@ -27,7 +27,6 @@ let limit = 21;
 export default class Home extends Component {
     constructor(props) {
         super(props);
-        console.log("dddd");
 
         this._renderRow = this._renderRow.bind(this);
 
@@ -39,11 +38,10 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-        console.log("dddd");
         InteractionManager.runAfterInteractions(() => {
             const {dispatch, HomeReducer} = this.props;
             //    HomeReducer.isLoading = true;
-            dispatch(HomeAction(this.props.type, tag, offest, limit, isRefreshing, isLoading));
+            dispatch(HomeAction(isRefreshing, isLoading));
         });
     }
     render() {
@@ -59,10 +57,10 @@ export default class Home extends Component {
 
                 {HomeReducer.isLoading ? <Loading /> :
                     <ListView
-                        dataSource={this.state.dataSource.cloneWithRows(homeList.module ? homeList.module : []) }
+                        dataSource={this.state.dataSource.cloneWithRows(homeList.module ? homeList.module : [])}
                         renderRow={this._renderRow}
                         enableEmptySections={true}
-                        initialListSize= {1}
+                        initialListSize={1}
                         style={styles.listView}
                         />
                 }
@@ -80,7 +78,7 @@ export default class Home extends Component {
                 if (rowIdentities == parseInt(rowDate.modulePosition) - 1) {
                     return (
 
-                            <HomeSwioer bannerDate={rowDate}/>
+                        <HomeSwioer bannerDate={rowDate} />
 
                     );
                 }
@@ -97,9 +95,9 @@ export default class Home extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         width: Common.window.width,
-        height: Common.window.height -90-55,
+        height: Common.window.height - 90 - 55,
         backgroundColor: 'rgb(240, 240, 240)',
 
     },
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
 
         backgroundColor: 'white',
     },
-    cellStyle:{
+    cellStyle: {
         backgroundColor: 'rgb(240, 240, 240)'
 
     },

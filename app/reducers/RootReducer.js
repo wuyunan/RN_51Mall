@@ -5,8 +5,10 @@
 import { combineReducers } from 'redux';
 //添加个页面的reducer并进行合并
 import HomeReducer from './HomeReducer';
+import CategoryReducer from './CategoryReducer';
 
 
 export default rootReducer = combineReducers({
     HomeReducer,
+    CategoryReducer,
 })

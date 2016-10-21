@@ -1,46 +1,29 @@
-/**
- * Created by ljunb on 16/5/27.
- */
-
-
-
-let KeyParam = {
-    KEY_APP_ID : "appid",
-    KEY_APP_VERSION : "appv",
-    KEY_APP_MODE : "appm",
-    KEY_APP_CHANNEL : "appch",
-    KEY_DEVICE_ID : "did",
-    KEY_DEVICE_BRAND : "dbr",
-    KEY_DEVICE_MODEL : "dmd",
-    KEY_DEVICE_OS : "dos",
-    KEY_DEVICE_SCREEN : "dscr",
-    KEY_DEVICE_NET : "dnet",
-    KEY_AREA : "area",
-    KEY_LONGITUDE : "lng",
-    KEY_LATITUDE : "lat",
-    KEY_TOKEN : "token",
-    KEY_TS : "ts",
-    KEY_BODY : "body"
- }
-
 let Util = {
     post: (url, param, successCallback, failCallback) => {
-        fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(getSignParam(param))
-            })
-            .then((response) => response.text())
-            .then((responseText) => {
-                successCallback(JSON.parse(responseText));
-            })
-            .catch((err) => {
-                failCallback(err);
-            });
+
+
+        var {NativeModules}=require('react-native');
+        var Encryption = NativeModules.RNEncryptionModule;
+        Encryption.getApiParamByCallBack("","", function(base64) {
+            console.log(base64);
+
+            fetch(url, {
+                    method: 'POST',
+                    body: toQueryString( JSON.parse(base64))
+                })
+                .then((response) => response.text())
+                .then((responseText) => {
+                    successCallback(JSON.parse(responseText));
+                })
+                .catch((err) => {
+                    failCallback(err);
+                });
+        }, function() {
+            console.log("error");
+        });
+
     },
+
     /*
      * fetch简单封装
      * url: 请求的URL
@@ -92,24 +75,21 @@ let Util = {
     }
 
 }
+function toQueryString(obj) {
+    return obj ? Object.keys(obj).sort().map(function (key) {
+        var val = obj[key];
+        if (Array.isArray(val)) {
+            return val.sort().map(function (val2) {
+                return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
+            }).join('&');
+        }
 
+        return encodeURIComponent(key) + '=' + encodeURIComponent(val);
+    }).join('&') : '';
+}
 
 let getSignParam = (bodyParam) => {
     console.log(bodyParam);
-    var paramMap = new Map();
-
-    paramMap.set(KeyParam.KEY_APP_ID , "jsa101");
-    paramMap.set(KeyParam.KEY_APP_MODE , "nt");
-    paramMap.set(KeyParam.KEY_APP_CHANNEL , "nc");
-    paramMap.set(KeyParam.KEY_DEVICE_ID , "12345-22222-3333-4444");
-    paramMap.set(KeyParam.KEY_DEVICE_BRAND , "Meizu");
-    paramMap.set(KeyParam.KEY_DEVICE_MODEL , "Pro6");
-    paramMap.set(KeyParam.KEY_DEVICE_OS , "and");
-    paramMap.set(KeyParam.KEY_DEVICE_SCREEN , "1080*1920");
-    paramMap.set(KeyParam.KEY_DEVICE_NET , "WIFI");
-    paramMap.set(KeyParam.KEY_AREA , "530000_530100_530200_0");
-    // paramMap.set(KeyParam.KEY_TOKEN , ""),
-    paramMap.set(KeyParam.KEY_TS , Date.now());
 
 
 
@@ -118,7 +98,7 @@ let getSignParam = (bodyParam) => {
     // for (var [key, value] of paramMap) {
     //   console.log(key + " = " + value);
     // }
-    return paramMap;
+
 }
 
 export default Util;
