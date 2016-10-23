@@ -7,7 +7,13 @@
 import * as types from './ActionType';
 import Util from '../common/Util';
 import Common from '../common/constants';
-
+/**
+ *
+ * @param isRefreshing
+ * @param isLoading
+ * @returns {function(*)}
+ * @constructor
+ */
 export let CategoryAction = ( isRefreshing, isLoading) => {
 
     let URL = 'http://apidev.niuchuangwin.com/app/call?code=homepage&ver=1';
@@ -34,15 +40,20 @@ export let CategoryAction = ( isRefreshing, isLoading) => {
 }
 
 
-
-
+/**
+ *
+ * @param isRefreshing
+ * @param isLoading
+ * @returns {function(*)}
+ * @constructor
+ */
 export let SubCategoryAction = ( isRefreshing, isLoading) => {
 
     let URL = 'http://apidev.niuchuangwin.com/app/call?code=homepage&ver=1';
     console.log(URL)
     return dispatch => {
         // dispatch(feachHomeList(isRefreshing, isLoading));
-        dispatch(feachTopCategory(isRefreshing, isLoading));
+        dispatch(feachSubCategory(isRefreshing, isLoading));
         return Util.post(URL, "",(response) => {
             // console.log(response)
             //由于没有api 只能拿真实的固定数据

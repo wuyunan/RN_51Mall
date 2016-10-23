@@ -11,10 +11,12 @@ let SubCategory = {
         "subCatalogs": [{
             "id": 770880611427584,
             "catalogName": "tetetstest",
+            "icon": "http://s.gaudid.com/sp/si/5514/222.jpg",
             "subCatalogs": []
         }, {
             "id": 770880893564160,
             "catalogName": "阿斯顿发斯蒂芬",
+            "icon": "http://s.gaudid.com/sp/si/5514/222.jpg",
             "subCatalogs": []
         }, {
             "id": 770887547065600,

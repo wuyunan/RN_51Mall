@@ -39,36 +39,42 @@ export default class SubCategoryListView extends Component {
     }
 
     _renderRow(rowDate) {
+        console.log(rowDate)
         return (
             <View style={styles.row}>
-                {
-                    rowDate.subCatalogs.map((object, i) => {
-                        const isSelect = this.state.selectArray[i];
-                        console.log('isSelect=====>' + this.state.selectArray);
-                        return (
-                            <TouchableOpacity
-                                activeOpacity={0.75}
-                                onPress={() => {
-                                    alert('我是BrandListView')
-                                } }
-                                style={styles.sub_category}
+                <Text >
+                    {rowDate.catalogName}
+                </Text>
+                <View>
+                    {
+                        rowDate.subCatalogs.map((object, i) => {
+                            console.log(object);
+                            return (
+                                <TouchableOpacity
+                                    key={i}
+                                    activeOpacity={0.75}
+                                    onPress={() => {
+                                        alert('我是BrandListView')
+                                    } }
+                                    style={styles.sub_category}
 
-                            >
-                                <Image
-                                    source={{uri: rowDate.pic}}
-                                    style={styles.rowDateImage}
-                                />
-                                <Text numberOfLines={1}
-                                      style={{fontSize: 11}}
-                                      textAlign={'center'}
                                 >
-                                    {rowDate.catalogName}
-                                </Text>
+                                    <Image
+                                        source={{uri: object.icon}}
+                                        style={styles.rowDateImage}
+                                    />
+                                    <Text numberOfLines={1}
+                                          style={{fontSize: 11}}
+                                          textAlign={'center'}
+                                    >
+                                        {object.catalogName}
+                                    </Text>
 
-                            </TouchableOpacity>
-                        );
-                    })
-                }
+                                </TouchableOpacity>
+                            );
+                        })
+                    }
+                </View>
             </View>
         );
     }
@@ -98,6 +104,9 @@ const styles = StyleSheet.create({
         width: Common.window.width * 3 / 4 / 3,
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'column',
+        backgroundColor: 'rgb(240, 240, 240)',
+
     },
     rowDateImage: {
         justifyContent: 'center',
@@ -115,11 +124,12 @@ const styles = StyleSheet.create({
     listView: {
         backgroundColor: 'rgb(240, 240, 240)',
         width: Common.window.width * 3 / 4,
-        height: Common.window.height - 60 - 60
+        height: Common.window.height - 60
     },
     sub_category: {
         justifyContent: 'center',
-        alignItems: 'center', flexDirection: 'column',
+        alignItems: 'center',
+        flexDirection: 'column',
         height: 100 - 10,
         width: Common.window.width * 3 / 4 / 3 - 10,
         backgroundColor: 'white'
