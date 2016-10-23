@@ -1,4 +1,4 @@
-package com.rntestproject;
+package com.hiapps.rnmall;
 
 import com.facebook.react.ReactActivity;
 

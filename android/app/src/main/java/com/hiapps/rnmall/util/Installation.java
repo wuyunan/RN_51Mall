@@ -1,4 +1,4 @@
-package com.rntestproject.util;
+package com.hiapps.rnmall.util;
 
 import android.content.Context;
 

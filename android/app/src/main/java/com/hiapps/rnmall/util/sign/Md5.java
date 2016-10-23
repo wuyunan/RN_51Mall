@@ -1,4 +1,4 @@
-package com.rntestproject.util.sign;
+package com.hiapps.rnmall.util.sign;
 
 
 import java.io.ByteArrayInputStream;

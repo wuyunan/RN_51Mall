@@ -1,4 +1,4 @@
-package com.rntestproject.util.sign;
+package com.hiapps.rnmall.util.sign;
 
 public class CommonSecret {
     public interface APPSIGN {

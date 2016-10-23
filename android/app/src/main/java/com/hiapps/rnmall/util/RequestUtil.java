@@ -1,14 +1,14 @@
-package com.rntestproject.util;
+package com.hiapps.rnmall.util;
 
 
 import android.content.Context;
 import android.graphics.Point;
 import android.text.TextUtils;
 
-import com.rntestproject.common.AppConstants;
-import com.rntestproject.util.sign.CommonSecret;
-import com.rntestproject.util.sign.DesUtils;
-import com.rntestproject.util.sign.SignUtils;
+import com.hiapps.rnmall.common.AppConstants;
+import com.hiapps.rnmall.util.sign.CommonSecret;
+import com.hiapps.rnmall.util.sign.DesUtils;
+import com.hiapps.rnmall.util.sign.SignUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

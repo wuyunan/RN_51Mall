@@ -1,4 +1,4 @@
-package com.rntestproject.common;
+package com.hiapps.rnmall.common;
 
 public class AppConstants {
     public interface APPID {

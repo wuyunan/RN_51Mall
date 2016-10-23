@@ -1,4 +1,4 @@
-package com.rntestproject;
+package com.hiapps.rnmall;
 
 import android.app.Application;
 
@@ -11,7 +11,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.rntestproject.rn.RNTestPackage;
+import com.hiapps.rnmall.rn.RNTestPackage;
 import com.smixx.reactnativeicons.ReactNativeIcons;
 
 import java.util.Arrays;
