@@ -8,6 +8,7 @@ let window = {
 import HomeData from '../data/HomeData';
 import AreaData from '../data/AreaData';
 import TopCategory from '../data/TopCategory'
+import SubCategory from '../data/SubCategory'
 
 import HomePage from '../data/HomePage'
 
@@ -17,4 +18,5 @@ export default {
     AreaData: AreaData,
     HomePage: HomePage,
     TopCategory: TopCategory,
+    SubCategory : SubCategory,
 }

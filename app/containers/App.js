@@ -11,6 +11,7 @@ import {
 
 import Splash from '../components/Splash';
 import StatusBarIOS from '../components/StatusBarIOS';
+import TabBarView from './TabBarView';
 
 
 class App extends React.Component {
@@ -19,9 +20,9 @@ class App extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 <StatusBarIOS barStyle="default"/>
-                
+
                 <Navigator
-                    initialRoute={{ name: 'Splash', component: Splash }}
+                    initialRoute={{ name: 'TabBarView', component: TabBarView }}
 
                     configureScene={(route) => {
                         if (route.sceneConfig) {

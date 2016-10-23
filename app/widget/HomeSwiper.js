@@ -42,7 +42,7 @@ export default class HomeSwiper extends Component {
                                 />
                         </TouchableOpacity>
                     )
-                }) }
+                })}
             </Swiper>);
     }
 }

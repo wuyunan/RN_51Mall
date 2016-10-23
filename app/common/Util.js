@@ -2,14 +2,16 @@ let Util = {
     post: (url, param, successCallback, failCallback) => {
 
 
-        var {NativeModules}=require('react-native');
-        var Encryption = NativeModules.RNEncryptionModule;
-        Encryption.getApiParamByCallBack("","", function(base64) {
-            console.log(base64);
-
+        // var {NativeModules}=require('react-native');
+        // var Encryption = NativeModules.RNEncryptionModule;
+        // Encryption.getApiParamByCallBack("","", function(base64) {
+            //console.log(base64);
+var base64 = {};
             fetch(url, {
                     method: 'POST',
-                    body: toQueryString( JSON.parse(base64))
+                    // body: toQueryString( JSON.parse(base64))
+                     body: toQueryString(base64)
+
                 })
                 .then((response) => response.text())
                 .then((responseText) => {
@@ -18,9 +20,9 @@ let Util = {
                 .catch((err) => {
                     failCallback(err);
                 });
-        }, function() {
-            console.log("error");
-        });
+        // }, function() {
+        //     console.log("error");
+        // });
 
     },
 

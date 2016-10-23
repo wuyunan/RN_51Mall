@@ -16,7 +16,7 @@ import Swiper from 'react-native-swiper';
 import { HomeAction } from '../action/HomeAction';
 import Loading from '../common/Loading';
 
-import HomeSwioer from '../Pages/HomeSwiper';
+import HomeSwioer from '../widget/HomeSwiper';
 
 let isRefreshing = false;
 let isLoading = true;

@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // import weixin from '../pages/weixin';
 
 // import Home from '../components/Home';
-import Brand from '../components/Brand';
+import Service from '../components/Service';
 import ShoppingCart from '../components/Cart';
 import AboutMe from '../components/AboutMe';
 
@@ -35,9 +35,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // ]
 
 const tabBarItems = [
-    { title: '首页', icon:() => <Icon name={'md-home'} size={30} /> , component: HomeContainer },
-    { title: '品牌', icon:() => <Icon name={'md-bookmark'} size={30} />, component: Brand },
     { title: '分类', icon: () =><Icon name={'md-apps'} size={30} />, component: CategoryContainer },
+    { title: '首页', icon:() => <Icon name={'md-home'} size={30} /> , component: HomeContainer },
+    { title: '客服', icon:() => <Icon name={'md-bookmark'} size={30} />, component: Service },
     { title: '购物车', icon: () =><Icon name={'md-cart'} size={30} /> , component: ShoppingCart },
     { title: '我的', icon:() => <Icon name={'md-contact'} size={30} /> , component: AboutMe },
 ]
@@ -51,7 +51,7 @@ export default class TarBarView extends Component {
     }
     render() {
         return (
-           
+
             <TabNavigator tabBarStyle={{ height: 60 }}>
                 {
                     tabBarItems.map((controller, i) => {

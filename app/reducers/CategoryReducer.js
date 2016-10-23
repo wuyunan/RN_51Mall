@@ -28,7 +28,7 @@ let categoryReducer = (state = initialState, action) => {
         case types.RECEIVE_SECOND_CATEGORY_LIST:
 
             return Object.assign({}, state, {
-                SecondCategory: action.secondCategory,
+                SecondCategory: action.subCatrgory,
                 isRefreshing: false,
                 isLoading: false,
             })
