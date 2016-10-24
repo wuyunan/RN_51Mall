@@ -1,20 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     View,
     TouchableOpacity,
     Image,
-    ScrollView,
     ListView,
-    PixelRatio
 } from 'react-native';
+
 import Common from '../common/constants';
 import Loading from '../common/Loading';
 const propTypes = {
     module: PropTypes.array.isRequired,
-
+    isLoading: PropTypes.bool,
 };
 
 export default class SubCategoryListView extends Component {
@@ -22,7 +20,6 @@ export default class SubCategoryListView extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
         this._renderRow = this._renderRow.bind(this);
         this.state = {
             dataSource: new ListView.DataSource({
@@ -39,16 +36,14 @@ export default class SubCategoryListView extends Component {
     }
 
     _renderRow(rowDate) {
-        console.log(rowDate)
         return (
             <View style={styles.row}>
-                <Text >
+                <Text style={styles.title}>
                     {rowDate.catalogName}
                 </Text>
-                <View>
+                <View style={styles.sub_category_contains}>
                     {
                         rowDate.subCatalogs.map((object, i) => {
-                            console.log(object);
                             return (
                                 <TouchableOpacity
                                     key={i}
@@ -64,7 +59,7 @@ export default class SubCategoryListView extends Component {
                                         style={styles.rowDateImage}
                                     />
                                     <Text numberOfLines={1}
-                                          style={{fontSize: 11}}
+                                          style={{fontSize: 12}}
                                           textAlign={'center'}
                                     >
                                         {object.catalogName}
@@ -80,65 +75,89 @@ export default class SubCategoryListView extends Component {
     }
 
     render() {
-
+        console.log(this.props.isLoading);
         return (
 
             <View style={styles.bgStyle}>
-                <ListView
-                    dataSource={this.state.dataSource.cloneWithRows(this.props.module ? this.props.module : []) }
-                    renderRow={this._renderRow}
-                    contentContainerStyle={styles.list}
-                    enableEmptySections={true}
-                    initialListSize={15}
-                    style={styles.listView}
-                />
+                {this.props.isLoading ? <Loading/> :
+                    <ListView
+                        dataSource={this.state.dataSource.cloneWithRows(this.props.module ? this.props.module : []) }
+                        renderRow={this._renderRow}
+                        contentContainerStyle={styles.list}
+                        enableEmptySections={true}
+                        initialListSize={15}
+                        style={styles.listView}
+                    />
+                }
             </View>
 
-        );
+        )
+            ;
     }
 }
 
 const styles = StyleSheet.create({
+    listView: {
+        backgroundColor: 'white',
+        width: Common.window.width * 3 / 4,
+        height: Common.window.height - 60
+    },
+    list: {
+        // justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+
+    },
     row: {
-        height: 100,
-        width: Common.window.width * 3 / 4 / 3,
+        width: Common.window.width * 3 / 4,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
         backgroundColor: 'rgb(240, 240, 240)',
 
     },
-    rowDateImage: {
+    title: {
+        height: 44,
+        width: Common.window.width * 3 / 4,
+        backgroundColor: 'rgb(240, 240, 240)',
         justifyContent: 'center',
-        alignItems: 'center',
-        height: Common.window.width * 3 / 4 / 3 - 30,
-        width: Common.window.width * 3 / 4 / 3 - 20,
-    },
-    list: {
-        // justifyContent: 'center',
-        flexDirection: 'row',
-        alignItems: 'center',
-        flexWrap: 'wrap',
+
 
     },
-    listView: {
-        backgroundColor: 'rgb(240, 240, 240)',
+
+    sub_category_contains: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        flexDirection: 'row',
         width: Common.window.width * 3 / 4,
-        height: Common.window.height - 60
+        backgroundColor: 'white',
+        flexWrap: 'wrap',
+        paddingTop: 10,
+        paddingBottom: 10,
+
     },
     sub_category: {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
-        height: 100 - 10,
-        width: Common.window.width * 3 / 4 / 3 - 10,
+        width: (Common.window.width * 3 / 4 - 20 ) / 3,
         backgroundColor: 'white'
 
     },
+    rowDateImage: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: (Common.window.width * 3 / 4 - 50 ) / 3,
+        height: (Common.window.width * 3 / 4 - 50 ) / 3,
+    },
+
     bgStyle: {
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',
+        backgroundColor: 'white',
+
 
     },
 
