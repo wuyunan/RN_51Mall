@@ -38,12 +38,21 @@ export default class SubCategoryListView extends Component {
     _renderRow(rowDate) {
         return (
             <View style={styles.row}>
-                <Text style={styles.title}>
-                    {rowDate.catalogName}
-                </Text>
+                <View style={styles.title}>
+                    <Image
+                        style={{height:36}}
+                        source={require("../img/search_tips.png")}
+                    />
+                    <Text style={{paddingLeft: 10}}>
+                        {rowDate.catalogName}
+                    </Text>
+                </View>
                 <View style={styles.sub_category_contains}>
                     {
                         rowDate.subCatalogs.map((object, i) => {
+
+
+                            var iconDataSource = object.icon !== undefined ? {uri: object.icon} : require('../img/ic_image_placeholder_small.png');
                             return (
                                 <TouchableOpacity
                                     key={i}
@@ -55,7 +64,7 @@ export default class SubCategoryListView extends Component {
 
                                 >
                                     <Image
-                                        source={{uri: object.icon}}
+                                        source={iconDataSource}
                                         style={styles.rowDateImage}
                                     />
                                     <Text numberOfLines={1}
@@ -75,20 +84,18 @@ export default class SubCategoryListView extends Component {
     }
 
     render() {
-        console.log(this.props.isLoading);
         return (
 
             <View style={styles.bgStyle}>
-                {this.props.isLoading ? <Loading/> :
-                    <ListView
-                        dataSource={this.state.dataSource.cloneWithRows(this.props.module ? this.props.module : []) }
-                        renderRow={this._renderRow}
-                        contentContainerStyle={styles.list}
-                        enableEmptySections={true}
-                        initialListSize={15}
-                        style={styles.listView}
-                    />
-                }
+                <ListView
+                    dataSource={this.state.dataSource.cloneWithRows(this.props.module ? this.props.module : []) }
+                    renderRow={this._renderRow}
+                    contentContainerStyle={styles.list}
+                    enableEmptySections={true}
+                    initialListSize={15}
+                    style={styles.listView}
+                />
+
             </View>
 
         )
@@ -98,7 +105,7 @@ export default class SubCategoryListView extends Component {
 
 const styles = StyleSheet.create({
     listView: {
-        backgroundColor: 'white',
+        backgroundColor: 'rgb(240, 240, 240)',
         width: Common.window.width * 3 / 4,
         height: Common.window.height - 60
     },
@@ -114,16 +121,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
-        backgroundColor: 'rgb(240, 240, 240)',
 
     },
     title: {
-        height: 44,
+        flexDirection: 'row',
+        height: 48,
         width: Common.window.width * 3 / 4,
-        backgroundColor: 'rgb(240, 240, 240)',
-        justifyContent: 'center',
-
-
+        justifyContent: 'flex-start',
+        alignItems: "center",
     },
 
     sub_category_contains: {
@@ -134,6 +139,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexWrap: 'wrap',
         paddingTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
         paddingBottom: 10,
 
     },
@@ -149,7 +156,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: (Common.window.width * 3 / 4 - 50 ) / 3,
-        height: (Common.window.width * 3 / 4 - 50 ) / 3,
+        height: ((Common.window.width * 3 / 4 - 50 ) / 3) * 4 / 5,
     },
 
     bgStyle: {

@@ -7,13 +7,13 @@ import {
     View,
     ScrollView,
     PixelRatio,
+    StyleSheet,
     InteractionManager,
 } from 'react-native';
 
 import Common from '../common/constants';
 import Buttom from '../widget/Buttom';
 import SubCategoryListView from '../widget/SubCategoryListView';
-import styles  from '../../style/Category'
 import {CategoryAction, SubCategoryAction} from '../action/CategoryAction';
 import Loading from '../common/Loading';
 
@@ -25,6 +25,7 @@ let Array = [];
 export default class Category extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             defaultNum: 0,
             selectArray: [1],
@@ -108,7 +109,7 @@ export default class Category extends Component {
                                                             InteractionManager.runAfterInteractions(() => {
                                                                 const {dispatch, CategoryReducer} = this.props;
                                                                 //    HomeReducer.isLoading = true;
-                                                                dispatch(SubCategoryAction(isRefreshing, isLoading));
+                                                                dispatch(SubCategoryAction(object.id, isRefreshing, isLoading));
                                                             });
                                                         }}
                                                     />
@@ -132,27 +133,78 @@ export default class Category extends Component {
     }
 
 
-    _onTopCategoryPress() {
-        console.log(this.props)
-        // Array.map((object, i) => {
-        //   Array[i] = 0;
-        // });
-        // Array.splice(i, 1, 1);
-        // this.setState({
-        //     defaultNum: 2,
-        //     selectArray: Array,
-        // });
+    _onTopCategoryPress(object, i) {
+        Array.map((object, i) => {
+            Array[i] = 0;
+        });
+        Array.splice(i, 1, 1);
+        this.setState({
+            defaultNum: i,
+            selectArray: Array,
+        });
 
         InteractionManager.runAfterInteractions(() => {
             const {dispatch, CategoryReducer} = this.props;
             //    HomeReducer.isLoading = true;
             dispatch(SubCategoryAction(isRefreshing, isLoading));
         });
-        // InteractionManager.runAfterInteractions(() => {
-        //   const {dispatch} = this.props;
-        //   dispatch(BrandAction(i + 1, tag, offest, limit, isRefreshing, isLoading));
-        // });
     }
+
 
 }
 
+
+const styles = StyleSheet.create({
+
+    container: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: 'rgb(240, 240, 240)',
+    },
+    mainViewStyle: {
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    left_container: {
+        backgroundColor: 'white',
+        width: Common.window.width / 4,
+        height: Common.window.height - 60,
+    },
+    top_category_normal: {
+        backgroundColor: '#fcfcfc',
+        borderRightWidth: 1 / PixelRatio.get(),
+        borderColor: 'rgb(240, 240, 240)',
+    },
+    top_category_selected: {
+        backgroundColor: 'rgb(240, 240, 240)',
+        borderRightWidth: 0,
+        borderColor: 'rgb(240, 240, 240)',
+
+    },
+    right_container: {
+        backgroundColor: 'white',
+        width: Common.window.width * 3 / 4 - 20,
+        height: Common.window.height - 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    listView: {
+
+        backgroundColor: 'white',
+        width: 150
+    },
+    cellStyle: {
+        backgroundColor: 'rgb(240, 240, 240)',
+        height: 44,
+        alignItems: 'center',
+    },
+});

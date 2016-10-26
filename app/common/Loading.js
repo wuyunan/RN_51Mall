@@ -22,7 +22,6 @@ export default class Loading extends React.Component {
 const styles = StyleSheet.create({
     loading: {
         backgroundColor: 'gray',
-
         height: 80,
         width: 100,
         borderRadius: 10,

@@ -25,10 +25,10 @@ export let CategoryAction = (isRefreshing, isLoading) => {
         return Util.post(URL, "", (response) => {
             // console.log(response)
             //由于没有api 只能拿真实的固定数据
-            // dispatch(receiveTopCategory(response.pins))
+            dispatch(receiveTopCategory(response.data))
 
             // console.log('请求分类数据')
-            dispatch(receiveTopCategory(Common.TopCategory.data))
+            // dispatch(receiveTopCategory(Common.TopCategory.data))
 
         }, (error) => {
             console.log('加载分类数据error==>' + error);
@@ -48,18 +48,22 @@ export let CategoryAction = (isRefreshing, isLoading) => {
  * @returns {function(*)}
  * @constructor
  */
-export let SubCategoryAction = (isRefreshing, isLoading) => {
+export let SubCategoryAction = (catrgoryId, isRefreshing, isLoading) => {
 
     let URL = 'http://apidev.niuchuangwin.com/app/call?code=querySubCatalog&ver=1';
+    var param = {
+        id: catrgoryId
+    }
+
     return dispatch => {
         dispatch(feachSubCategory(isRefreshing, isLoading));
-        return Util.post(URL, "", (response) => {
+        return Util.post(URL, JSON.stringify(param), (response) => {
             // console.log(response)
             //由于没有api 只能拿真实的固定数据
-            // dispatch(receiveTopCategory(response.pins))
+            dispatch(receiveSubCategory(response.data))
 
             // console.log('请求分类数据')
-            dispatch(receiveSubCategory(Common.SubCategory.data))
+            // dispatch(receiveSubCategory(Common.SubCategory.data))
 
         }, (error) => {
             console.log('加载分类数据error==>' + error);
