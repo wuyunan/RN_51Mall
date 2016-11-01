@@ -108,7 +108,6 @@ export default class Category extends Component {
 
                                                             InteractionManager.runAfterInteractions(() => {
                                                                 const {dispatch, CategoryReducer} = this.props;
-                                                                //    HomeReducer.isLoading = true;
                                                                 dispatch(SubCategoryAction(object.id, isRefreshing, isLoading));
                                                             });
                                                         }}

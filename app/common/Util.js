@@ -66,6 +66,28 @@ let Util = {
 
     },
 
+    post2: (url, param, successCallback, failCallback) => {
+
+
+        var option = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+            },
+            body: toQueryString(param)
+
+        };
+        fetch(url, option).then((response) => response.text())
+            .then((responseText) => {
+                successCallback(JSON.parse(responseText));
+            })
+            .catch((err) => {
+                failCallback(err);
+            });
+
+
+    },
+
     /*
      * fetch简单封装
      * url: 请求的URL

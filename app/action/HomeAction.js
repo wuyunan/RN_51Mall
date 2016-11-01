@@ -18,10 +18,10 @@ export let HomeAction = ( isRefreshing, isLoading) => {
         return Util.post(URL, "",(response) => {
             // console.log(response)
             //由于没有api 只能拿真实的固定数据
-            // dispatch(receiveHomeList(response.pins))
+            dispatch(receiveHomeList(response.data[0]))
 
                 console.log('请求首页数据')
-                dispatch(receiveHomeList(Common.HomeDate))
+                // dispatch(receiveHomeList(Common.HomeDate))
         }, (error) => {
             console.log('加载首页数据error==>' + error);
             // // debugger
