@@ -11,12 +11,13 @@ import {
 import Button from 'react-native-button';
 
 import Common from '../common/constants';
+import Global from '../common/Global'
+
 import {LoginAction} from '../action/LoginAction';
 import CheckInContainer from '../containers/CheckInContainer'
 
 let isRefreshing = false;
 let isLoading = true;
-import Global from '../common/Global'
 
 
 export default class Login extends Component {
@@ -68,12 +69,12 @@ export default class Login extends Component {
         if (loginData.jsessionid !== undefined) {
             this.timer = setTimeout(() => {
                 InteractionManager.runAfterInteractions(() => {
-                    navigator.resetTo({
+                    navigator.push({
                         component: CheckInContainer,
                         name: 'CheckInContainer'
                     });
                 });
-            }, 2000);
+            }, 500);
         }
         var message;
         if (loginData.succeed !== undefined) {

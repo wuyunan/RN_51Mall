@@ -22,6 +22,10 @@ import Global from '../common/Global'
  */
 export let LoginAction = (usr, pwd, isRefreshing, isLoading) => {
 
+    Global.storage.remove({
+        key: 'user'
+    });
+
     let URL = 'https://www.eteams.cn/teamsLogin?client=iphone&version=3.6.12';
     var param = {
         username: usr,

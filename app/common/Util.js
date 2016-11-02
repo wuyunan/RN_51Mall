@@ -73,7 +73,10 @@ let Util = {
             method: 'POST',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+                'Cookie':'',
             },
+            credentials: 'omit',
+
             body: toQueryString(param)
 
         };

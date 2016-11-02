@@ -10,6 +10,9 @@ import {
 import Button from 'react-native-button';
 
 import Common from '../common/constants';
+import Global from '../common/Global'
+
+
 import {CheckinAction, CheckStatusAction} from '../action/CheckInAction';
 import Loading from '../common/Loading';
 
@@ -21,7 +24,9 @@ let isLoading = true;
 export default class CheckIn extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            username: '',
+        };
 
     }
 
@@ -30,6 +35,27 @@ export default class CheckIn extends Component {
             const {dispatch, CheckinReducer} = this.props;
             //    HomeReducer.isLoading = true;
             dispatch(CheckStatusAction(isRefreshing, isLoading));
+            Global.storage.load({
+                key: 'user'
+            }).then(ret => {
+                // 如果找到数据，则在then方法中返回
+                this.setState({
+                    username: ret.username,
+                });
+
+            }).catch(err => {
+                // 如果没有找到数据且没有sync方法，
+                // 或者有其他异常，则在catch中返回
+                // console.warn(err.message);
+                switch (err.name) {
+                    case 'NotFoundError':
+                        // TODO;
+                        break;
+                    case 'ExpiredError':
+                        // TODO
+                        break;
+                }
+            });
         });
     }
 
@@ -49,23 +75,21 @@ export default class CheckIn extends Component {
             hasMessage = true;
         }
 
-        var userName;
         let StatusText;
 
-        if (checkStatusData.timecard !== undefined) {
-            userName = checkStatusData.timecard.user.name;
-            if (checkStatusData.timecard.type === "CHECKIN") {
+        if (checkStatusData.timecardStatus !== undefined) {
+            if (checkStatusData.timecardStatus === "CHECKIN") {
                 StatusText = <Text style={styles.cellStyle}>
-                    状态: 已签到 {checkStatusData.timecard.statusMsg} {checkStatusData.checkIn}
+                    状态: 还没签到
                 </Text>
-            } else {
+            } else if (checkStatusData.timecardStatus === "CHECKOUT") {
                 StatusText = <Text style={styles.cellStyle}>
-                    状态: {checkStatusData.timecard.statusMsg}
+                    状态: 已签到 {checkStatusData.timecard.statusMsg}
                 </Text>
             }
         } else {
             StatusText = <Text style={styles.cellStyle}>
-                状态: 获取中……
+                状态: who know！！！
             </Text>
         }
 
@@ -76,7 +100,7 @@ export default class CheckIn extends Component {
                 {CheckinReducer.isLoading ? <Loading /> :
                     <View style={styles.container}>
                         <Text style={styles.cellStyle}>
-                            用户名: {userName}
+                            用户名: {this.state.username}
                         </Text>
                         {StatusText}
                         {checkStatusData.timecardStatus == "CHECKIN" ?
@@ -88,7 +112,7 @@ export default class CheckIn extends Component {
                                     InteractionManager.runAfterInteractions(() => {
                                         const {dispatch, EteamsReducer} = this.props;
                                         //    HomeReducer.isLoading = true;
-                                        dispatch(CheckinAction(loginData.jsessionid, isRefreshing, isLoading));
+                                        dispatch(CheckinAction(isRefreshing, isLoading));
                                     });
                                 }}>
                                 签到

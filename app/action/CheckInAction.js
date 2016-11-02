@@ -78,33 +78,42 @@ export let CheckStatusAction = (isRefreshing, isLoading) => {
  */
 export let CheckinAction = (jsessionid, isRefreshing, isLoading) => {
 
-    let URL = 'https://www.eteams.cn/app/timecard/check.json?client=iphone&version=3.6.12';
-    if (jsessionid !== undefined) {
-        URL += '&jsessionid=' + jsessionid;
-    }
-    var param = {
-        type: "CHECKIN",
-        longitude: 121.4816602,
-        latitude: 31.1793978,
-        checkAddress: "泛微网络科技有限公司",
-    }
 
     return dispatch => {
         dispatch(feachCheckIn(isRefreshing, isLoading));
-        return Util.post2(URL, param, (response) => {
-            // console.log(response)
-            //由于没有api 只能拿真实的固定数据
-            dispatch(receiveCheckIn(response))
+
+        let URL = 'https://www.eteams.cn/app/timecard/check.json?client=iphone&version=3.6.12';
 
 
-        }, (error) => {
-            console.log('CheckinAction error==>' + error);
-            // // debugger
-            dispatch(receiveCheckIn({}));
+        Global.storage.load({
+            key: 'user'
+        }).then(ret => {
+            if (ret.jsessionid !== undefined) {
+                URL += '&jsessionid=' + ret.jsessionid;
+            }
+            var param = {
+                type: "CHECKIN",
+                longitude: 121.4816602,
+                latitude: 31.1793978,
+                checkAddress: "泛微网络科技有限公司",
+            }
+
+            return Util.post2(URL, param, (response) => {
+                // console.log(response)
+                //由于没有api 只能拿真实的固定数据
+                dispatch(receiveCheckIn(response))
+
+
+            }, (error) => {
+                console.log('CheckinAction error==>' + error);
+                // // debugger
+                dispatch(receiveCheckIn({}));
+            });
+
+
         });
 
     }
-
 }
 
 
