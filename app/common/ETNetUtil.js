@@ -1,4 +1,5 @@
 'use strict'
+import Global from '../common/Global'
 
 
 const toQueryString = function (obj) {
@@ -14,21 +15,27 @@ const toQueryString = function (obj) {
 }
 
 
-let Util = {
+let ETNetUtil = {
+
     post: (url, param, successCallback, failCallback) => {
+        Global.storage.load({
+            key: 'user'
+        }).then(ret => {
+            // 如果找到数据，则在then方法中返回
+            console.log(ret);
 
-
-        var {NativeModules}=require('react-native');
-        var Encryption = NativeModules.RNEncryptionModule;
-
-        Encryption.getApiParamByCallBack(param, "", function (base64) {
+            if (ret.jsessionid !== undefined) {
+                url += '&jsessionid=' + ret.jsessionid;
+            }
 
             var option = {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+                    'Cookie': 'ETEAMSID=' + ret.ETEAMSID + ';ROUTEID=.r1',
                 },
-                body: toQueryString(JSON.parse(base64))
+                credentials: 'omit',
+                body: toQueryString(param)
 
             };
             fetch(url, option).then((response) => response.text())
@@ -38,13 +45,23 @@ let Util = {
                 .catch((err) => {
                     failCallback(err);
                 });
-        }, function () {
-            console.log("error");
-        });
+
+        }).catch(err => {
+            // 如果没有找到数据且没有sync方法，
+            // 或者有其他异常，则在catch中返回
+            // console.warn(err.message);
+            switch (err.name) {
+                case 'NotFoundError':
+                    // TODO;
+                    break;
+                case 'ExpiredError':
+                    // TODO
+                    break;
+            }
+        })
 
     },
-
-    post2: (url, param, successCallback, failCallback) => {
+    postWithoutToken: (url, param, successCallback, failCallback) => {
 
 
         var option = {
@@ -66,7 +83,6 @@ let Util = {
 
 
     },
-
     /*
      * fetch简单封装
      * url: 请求的URL
@@ -84,38 +100,7 @@ let Util = {
                 failCallback(err);
             });
     },
-    gets: (url, successCallback, failCallback) => {
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = (e) => {
-            if (request.readyState !== 4) {
-                return;
-            }
 
-            if (request.status === 200) {
-                successCallback(JSON.parse(request.responseText))
-
-            } else {
-                // console.warn('error');
-            }
-        };
-
-        request.open('GET', url);
-        request.send();
-    },
-
-    getForPromise: (url) => {
-        return new Promise((resolve, reject) => {
-            fetch(url)
-                .then((response) => response.text())
-                .then((responseText) => {
-                    resolve(JSON.parse(responseText));
-                })
-                .catch((err) => {
-                    reject(new Error(err));
-                    console.warn(err);
-                }).done();
-        });
-    }
 
 }
 
@@ -132,4 +117,4 @@ let getSignParam = (bodyParam) => {
 
 }
 
-export default Util;
+export default ETNetUtil;

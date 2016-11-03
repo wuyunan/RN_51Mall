@@ -9,7 +9,7 @@ import React, {
 } from 'react-native';
 
 import * as types from './ActionType';
-import Util from '../common/Util';
+import ETNetUtil from '../common/ETNetUtil';
 import Global from '../common/Global'
 
 
@@ -31,17 +31,23 @@ export let LoginAction = (usr, pwd, isRefreshing, isLoading) => {
         username: usr,
         password: pwd,
     }
-    console.log(URL)
+
+
     return dispatch => {
         dispatch(feachEteamsLogin(isRefreshing, isLoading));
-        return Util.post2(URL, param, (response) => {
+        return ETNetUtil.postWithoutToken(URL, param, (response) => {
             // console.log(response)
             //由于没有api 只能拿真实的固定数据
             dispatch(receiveEteamsLogin(response))
 
             Global.storage.save({
                 key: 'user',
-                rawData: response,
+                rawData: {
+                    jsessionid: response.jsessionId,
+                    ETEAMSID: response.ETEAMSID,
+                    username: response.username,
+                    userid: response.userid,
+                },
             });
 
 

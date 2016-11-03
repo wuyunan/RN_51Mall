@@ -1,4 +1,4 @@
-rootProject.name = 'RNTestProject'
+rootProject.name = 'RNMall'
 
 include ':app'
 include ':react-native-vector-icons'

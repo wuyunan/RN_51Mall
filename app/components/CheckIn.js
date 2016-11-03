@@ -3,14 +3,14 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
     Alert,
     InteractionManager,
 } from 'react-native';
-import Button from 'react-native-button';
+import {
+    Button,
+} from 'react-native-elements'
 
 import Common from '../common/constants';
-import Global from '../common/Global'
 
 
 import {CheckinAction, CheckStatusAction} from '../action/CheckInAction';
@@ -24,9 +24,7 @@ let isLoading = true;
 export default class CheckIn extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            username: '',
-        };
+
 
     }
 
@@ -35,30 +33,16 @@ export default class CheckIn extends Component {
             const {dispatch, CheckinReducer} = this.props;
             //    HomeReducer.isLoading = true;
             dispatch(CheckStatusAction(isRefreshing, isLoading));
-            Global.storage.load({
-                key: 'user'
-            }).then(ret => {
-                // 如果找到数据，则在then方法中返回
-                this.setState({
-                    username: ret.username,
-                });
 
-            }).catch(err => {
-                // 如果没有找到数据且没有sync方法，
-                // 或者有其他异常，则在catch中返回
-                // console.warn(err.message);
-                switch (err.name) {
-                    case 'NotFoundError':
-                        // TODO;
-                        break;
-                    case 'ExpiredError':
-                        // TODO
-                        break;
-                }
-            });
         });
     }
 
+    _checkOut() {
+        Alert.alert(
+            '提示',
+            '暂时还没实现!',
+        )
+    }
 
     render() {
         const {CheckinReducer} = this.props;
@@ -76,16 +60,53 @@ export default class CheckIn extends Component {
         }
 
         let StatusText;
-
+        let CheckButton;
         if (checkStatusData.timecardStatus !== undefined) {
             if (checkStatusData.timecardStatus === "CHECKIN") {
                 StatusText = <Text style={styles.cellStyle}>
                     状态: 还没签到
-                </Text>
+                </Text>;
+                CheckButton = <Button
+                    small
+                    icon={{name: 'book', type: 'font-awesome'}}
+                    title='签到'
+                    backgroundColor='#397af8'
+
+                    onPress={() => {
+                        console.log("You tapped the button!");
+                        InteractionManager.runAfterInteractions(() => {
+                            const {dispatch, EteamsReducer} = this.props;
+                            //    HomeReducer.isLoading = true;
+                            dispatch(CheckinAction(isRefreshing, isLoading));
+                        });
+                    }}/>
             } else if (checkStatusData.timecardStatus === "CHECKOUT") {
-                StatusText = <Text style={styles.cellStyle}>
-                    状态: 已签到 {checkStatusData.timecard.statusMsg}
-                </Text>
+                StatusText = <View>
+                    <Text style={styles.cellStyle}>
+                        用户: { checkStatusData.timecard.user.username}
+                    </Text>
+                    <Text style={styles.cellStyle}>
+                        状态:已签到 { checkStatusData.timecard.statusMsg}
+                    </Text>
+                    <Text style={styles.cellStyle}>
+                        时间: { checkStatusData.checkIn }
+                    </Text>
+                    <Text style={styles.cellStyle}>
+                        工作时间: { checkStatusData.workTime1 + " - " + checkStatusData.workTime2 }
+                    </Text>
+                    <Text style={styles.cellStyle}>
+                        地址: { checkStatusData.timecard.checkAddress  }
+                    </Text>
+                </View>;
+                CheckButton = <Button
+                    small
+                    icon={{name: 'envira', type: 'font-awesome'}}
+                    title='签退'
+                    backgroundColor='#397af8'
+                    onPress={() => {
+                        this._checkOut();
+
+                    }}/>;
             }
         } else {
             StatusText = <Text style={styles.cellStyle}>
@@ -99,36 +120,9 @@ export default class CheckIn extends Component {
 
                 {CheckinReducer.isLoading ? <Loading /> :
                     <View style={styles.container}>
-                        <Text style={styles.cellStyle}>
-                            用户名: {this.state.username}
-                        </Text>
+
                         {StatusText}
-                        {checkStatusData.timecardStatus == "CHECKIN" ?
-                            <Button
-                                style={styles.button}
-                                styleDisabled={{color: 'red'}}
-                                onPress={() => {
-                                    console.log("You tapped the button!");
-                                    InteractionManager.runAfterInteractions(() => {
-                                        const {dispatch, EteamsReducer} = this.props;
-                                        //    HomeReducer.isLoading = true;
-                                        dispatch(CheckinAction(isRefreshing, isLoading));
-                                    });
-                                }}>
-                                签到
-                            </Button> :
-                            <Button
-                                style={styles.button}
-                                styleDisabled={{color: 'red'}}
-                                onPress={() => {
-                                    Alert.alert(
-                                        '提示',
-                                        '暂时还没实现!',
-                                    )
-                                }}>
-                                签退
-                            </Button>
-                        }
+                        {CheckButton}
 
                         <Text style={styles.cellStyle}>
                             {hasMessage ? message : ""}

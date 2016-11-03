@@ -8,7 +8,12 @@ import {
     Image,
     InteractionManager,
 } from 'react-native';
-import Button from 'react-native-button';
+import {
+    Button,
+    FormLabel,
+    FormInput,
+    Icon
+} from 'react-native-elements'
 
 import Common from '../common/constants';
 import Global from '../common/Global'
@@ -89,51 +94,66 @@ export default class Login extends Component {
                     keyboardDismissMode='on-drag' //拖动界面输入法退出
                     keyboardShouldPersistTaps={false} //点击输入法意外的区域，输入法退出
                 >
-                    <Image
-                        source={{uri: 'http://oss-hz.qianmi.com/qianmicom/u/cms/qmwww/201511/03102524l6ur.png'}}
-                    />
-                    <TextInput
-                        style={styles.input}
+                    <View style={styles.contentContainer}>
 
-                        placeholder='username'
-                        value={this.state.username}
-                        onChangeText={(username) => this.setState({username})}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='password'
+                        <Icon
+                            style={styles.icon}
 
-                        value={this.state.password}
-                        onChangeText={(password) => this.setState({password})}
-                        password={true}/>
-                    <Text
-                        style={styles.errorMessage}>
-                        {loginData.message}
-                    </Text>
+                            raised
+                            name='heartbeat'
+                            type='font-awesome'
+                            color='#f50'/>
 
-                    <Button
-                        style={styles.button}
-                        styleDisabled={{color: 'red'}}
-                        onPress={() => {
+                        <FormLabel>用户名</FormLabel>
+                        <FormInput
+                            style={styles.input}
+
+                            placeholder='用户名'
+                            value={this.state.username}
+                            onChangeText={(username) => this.setState({username})}
+                        />
+                        <FormLabel>密码</FormLabel>
+
+                        <FormInput
+                            style={styles.input}
+                            placeholder='请输入密码'
+
+                            value={this.state.password}
+                            onChangeText={(password) => this.setState({password})}
+                            password={true}
+                            secureTextEntry={true}/>
+                        <Text
+                            style={styles.errorMessage}>
+                            {loginData.message}
+                        </Text>
 
 
-                            Global.storage.save({
-                                key: 'logininfo',
-                                rawData: {
-                                    username: this.state.username,
-                                    password: this.state.password,
-                                },
-                            });
+                        <Button
+                            style={styles.button}
+                            small
+                            icon={{name: 'envira', type: 'font-awesome'}}
+                            title='登录'
+                            backgroundColor='#397af8'
+                            onPress={() => {
 
-                            InteractionManager.runAfterInteractions(() => {
-                                const {dispatch, EteamsReducer} = this.props;
-                                //    HomeReducer.isLoading = true;
-                                dispatch(LoginAction(this.state.username, this.state.password, isRefreshing, isLoading));
-                            });
-                        }}>
-                        登录
-                    </Button>
 
+                                Global.storage.save({
+                                    key: 'logininfo',
+                                    rawData: {
+                                        username: this.state.username,
+                                        password: this.state.password,
+                                    },
+                                });
+
+                                InteractionManager.runAfterInteractions(() => {
+                                    const {dispatch, EteamsReducer} = this.props;
+                                    //    HomeReducer.isLoading = true;
+                                    dispatch(LoginAction(this.state.username, this.state.password, isRefreshing, isLoading));
+                                });
+                            }}>
+
+                        </Button>
+                    </View>
 
                 </ScrollView>
 
@@ -150,14 +170,20 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Common.window.width,
         height: Common.window.height - 90 - 55,
-        flexDirection: 'column',
         backgroundColor: 'rgb(240, 240, 240)',
-        justifyContent: 'center',
-
 
     },
     contentContainer: {
-        backgroundColor: 'rgb(240, 240, 240)'
+        width: Common.window.width,
+        backgroundColor: 'rgb(240, 240, 240)',
+        flexDirection: 'column',
+        justifyContent: 'center',
+
+    },
+
+    icon: {
+        height: 100,
+        width: 100,
     },
 
     cellStyle: {
@@ -175,12 +201,7 @@ const styles = StyleSheet.create({
 
     },
     button: {
-        fontSize: 20,
-        color: 'green',
-        alignSelf: 'stretch', //非常重要，覆盖父样式
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 40,
+
         borderRadius: 5,
         marginTop: 10
     },
