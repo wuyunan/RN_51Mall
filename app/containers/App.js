@@ -22,7 +22,10 @@ class App extends React.Component {
                 <StatusBarIOS barStyle="default"/>
 
                 <Navigator
-                    initialRoute={{ name: 'LoginContainer', component: LoginContainer }}
+                    initialRoute={{
+                        name: 'TabBarView',
+                        component: TabBarView
+                    }}
 
                     configureScene={(route) => {
                         if (route.sceneConfig) {
@@ -36,7 +39,7 @@ class App extends React.Component {
                             <Component navigator = {navigator} route = {route} {...route.passProps} />
                         )
                     } }
-                    />
+                />
             </View>
         )
     }

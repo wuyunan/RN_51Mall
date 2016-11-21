@@ -16,8 +16,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
- // NSURL *jsCodeLocation = [NSURL URLWithString:@"http://10.12.28.19:8081/index.ios.bundle?platform=ios"];
+  //NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  NSURL *jsCodeLocation = [NSURL URLWithString:@"http://10.12.28.19:8081/index.ios.bundle?platform=ios"];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"RNMALL"
                                                initialProperties:nil

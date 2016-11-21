@@ -1,7 +1,6 @@
 'use strict'
 import Global from '../common/Global'
 
-
 const toQueryString = function (obj) {
     return obj ? Object.keys(obj).sort().map(function (key) {
         var val = obj[key];
@@ -18,6 +17,7 @@ const toQueryString = function (obj) {
 let ETNetUtil = {
 
     post: (url, param, successCallback, failCallback) => {
+
         Global.storage.load({
             key: 'user'
         }).then(ret => {
