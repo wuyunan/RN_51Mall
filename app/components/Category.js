@@ -95,22 +95,7 @@ export default class Category extends Component {
                                                             textAlign: 'center'
                                                         }, isSelect ? {color: 'red'} : {color: 'black'}]}
                                                         text={object.catalogName}
-                                                        onPress={() => {
-
-                                                            Array.map((object, i) => {
-                                                                Array[i] = 0;
-                                                            });
-                                                            Array.splice(i, 1, 1);
-                                                            this.setState({
-                                                                defaultNum: i,
-                                                                selectArray: Array,
-                                                            });
-
-                                                            InteractionManager.runAfterInteractions(() => {
-                                                                const {dispatch, CategoryReducer} = this.props;
-                                                                dispatch(SubCategoryAction(object.id, isRefreshing, isLoading));
-                                                            });
-                                                        }}
+                                                        onPress={() => this._onTopCategoryPress(object, i)}
                                                     />
                                                 );
                                             }
@@ -131,8 +116,13 @@ export default class Category extends Component {
         );
     }
 
-
-    _onTopCategoryPress(object, i) {
+    /**
+     *
+     * @param object
+     * @param i
+     * @private
+     */
+    _onTopCategoryPress = (object, i) => {
         Array.map((object, i) => {
             Array[i] = 0;
         });
@@ -144,8 +134,7 @@ export default class Category extends Component {
 
         InteractionManager.runAfterInteractions(() => {
             const {dispatch, CategoryReducer} = this.props;
-            //    HomeReducer.isLoading = true;
-            dispatch(SubCategoryAction(isRefreshing, isLoading));
+            dispatch(SubCategoryAction(object.id, isRefreshing, isLoading));
         });
     }
 
