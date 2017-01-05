@@ -74,7 +74,7 @@ export default class Login extends Component {
         if (loginData.jsessionid !== undefined) {
             this.timer = setTimeout(() => {
                 InteractionManager.runAfterInteractions(() => {
-                    navigator.push({
+                    navigator.replace({
                         component: CheckInContainer,
                         name: 'CheckInContainer'
                     });
