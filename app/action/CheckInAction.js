@@ -60,13 +60,27 @@ export let CheckinAction = (jsessionid, isRefreshing, isLoading) => {
 
         let URL = 'https://www.eteams.cn/app/timecard/check.json?client=iphone&version=3.6.12';
 
+        let addressArray = ["上海市浦东新区济明路靠近泛微软件(济明路)",
+            "上海市浦东新区济明路靠近泛微软件(济明路)",
+            "上海市浦东新区济明路靠近泛微软件(济明路)",
+            "上海市浦东新区济明路靠近泛微软件(济明路)",
+            "上海市浦东新区上钢新村街道通耀路耀华滨江公寓"];
 
-        var param = {
+        let longitudeArray = [121.481166, 121.481166, 121.481166, 121.481166, 121.4816602];
+        let latitudeArray = [31.178869, 31.178869, 31.178869, 31.178869, 31.1793978];
+
+        let randomIndex = Math.floor(Math.random() * 5);
+        console.log(randomIndex);
+
+        let param = {
             type: "CHECKIN",
-            longitude: 121.4816602,
-            latitude: 31.1793978,
-            checkAddress: "泛微网络科技有限公司",
-        }
+            longitude: longitudeArray[randomIndex],
+            latitude: latitudeArray[randomIndex],
+            checkAddress: addressArray[randomIndex],
+        };
+
+        console.log(param);
+
 
         return ETNetUtil.post(URL, param, (response) => {
             // console.log(response)
