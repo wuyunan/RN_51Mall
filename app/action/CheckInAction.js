@@ -58,16 +58,16 @@ export let CheckinAction = (jsessionid, isRefreshing, isLoading) => {
     return dispatch => {
         dispatch(feachCheckIn(isRefreshing, isLoading));
 
-        let URL = 'https://www.eteams.cn/app/timecard/check.json?client=iphone&version=3.6.12';
+        let URL = 'https://www.eteams.cn/app/timecard/check.json?client=iphone&version=3.6.19';
 
-        let addressArray = ["上海市浦东新区济明路靠近泛微软件(济明路)",
-            "上海市浦东新区济明路靠近泛微软件(济明路)",
-            "上海市浦东新区济明路靠近泛微软件(济明路)",
-            "上海市浦东新区济明路靠近泛微软件(济明路)",
+        let addressArray = ["泛微软件(济明路)",
+            "泛微软件(济明路)",
+            "泛微软件(济明路)",
+            "泛微软件(济明路)",
             "上海市浦东新区上钢新村街道通耀路耀华滨江公寓"];
 
-        let longitudeArray = [121.481166, 121.481166, 121.481166, 121.481166, 121.4816602];
-        let latitudeArray = [31.178869, 31.178869, 31.178869, 31.178869, 31.1793978];
+        let longitudeArray = [121.481167, 121.481166, 121.481165, 121.481166, 121.4816602];
+        let latitudeArray = [31.178868, 31.178868, 31.178867, 31.178869, 31.1793978];
 
         let randomIndex = Math.floor(Math.random() * 5);
         console.log(randomIndex);
